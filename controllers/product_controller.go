@@ -96,6 +96,18 @@ func (pc *ProductController) GetProductByID(w http.ResponseWriter, r *http.Reque
 	json.NewEncoder(w).Encode(user)
 }
 
+// Get Products
+func (pc *ProductController) GetAllProducts(w http.ResponseWriter, r *http.Request) {
+    products, err := pc.productService.GetAllProducts()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    json.NewEncoder(w).Encode(products)
+}
+
+
 // Update Product By Id
 func (ac *ProductController) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)

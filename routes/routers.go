@@ -3,15 +3,19 @@
 package routes
 
 import (
-    "github.com/gorilla/mux"
-    "github.com/luqmanshaban/go-eccomerce/controllers"
-    "github.com/luqmanshaban/go-eccomerce/services"
+	"github.com/gorilla/mux"
+	"github.com/luqmanshaban/go-eccomerce/controllers"
+	"github.com/luqmanshaban/go-eccomerce/initializers"
+	"github.com/luqmanshaban/go-eccomerce/services"
 )
 
 func SetupRoutes(router *mux.Router, userService services.UserService, productService services.ProductServices) {
+    initializers.LoadEnv()
     // Create instances of controllers with injected dependencies
     authController := controllers.NewAuthController(userService)
     productController := controllers.NewProductController(productService)
+
+    // Jwt middleware
 
     // Routes for auth controller
     router.HandleFunc("/api/register", authController.CreateUser).Methods("POST")
@@ -22,6 +26,7 @@ func SetupRoutes(router *mux.Router, userService services.UserService, productSe
     // Routes for Product controller
     router.HandleFunc("/api/products", productController.CreateProduct).Methods("POST")
     router.HandleFunc("/api/products-bulk", productController.CreateProducts).Methods("POST")
+    router.HandleFunc("/api/products-bulk", productController.GetAllProducts).Methods("GET")
     router.HandleFunc("/api/products/{id}", productController.GetProductByID).Methods("GET")
     router.HandleFunc("/api/products/{id}", productController.UpdateProduct).Methods("PUT")
     router.HandleFunc("/api/products/{id}", productController.DeleteProduct).Methods("DELETE")
