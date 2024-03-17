@@ -37,6 +37,6 @@ func main() {
     )
 
     // Start the HTTP server
-    fmt.Println("SERVER RUNNING ON http://localhost:3000")
+    fmt.Println("SERVER RUNNING ON http://localhost:4000")
     http.ListenAndServe(":4000", corsHandler(router))
 }

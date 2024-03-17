@@ -9,4 +9,5 @@ type UserService interface {
 	DeleteUser(id string) error
 	GetUserByEmail(email string) (*models.User, error)
 	GetUserByUsername(username string) (*models.User, error)
+	Login(email, password string) (*models.User, error)
 }
