@@ -5,13 +5,13 @@ package routes
 import (
 	"github.com/gorilla/mux"
 	"github.com/luqmanshaban/go-eccomerce/controllers"
-	"github.com/luqmanshaban/go-eccomerce/initializers"
+	// "github.com/luqmanshaban/go-eccomerce/initializers"
 	"github.com/luqmanshaban/go-eccomerce/middlewares"
 	"github.com/luqmanshaban/go-eccomerce/services"
 )
 
 func SetupRoutes(router *mux.Router, userService services.UserService, productService services.ProductServices) {
-    initializers.LoadEnv()
+    // initializers.LoadEnv()
     // Create instances of controllers with injected dependencies
     authController := controllers.NewAuthController(userService)
     productController := controllers.NewProductController(productService)

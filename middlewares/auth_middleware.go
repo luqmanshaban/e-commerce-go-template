@@ -6,11 +6,11 @@ import (
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/luqmanshaban/go-eccomerce/initializers"
+	// "github.com/luqmanshaban/go-eccomerce/initializers"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
-	initializers.LoadEnv()
+	// initializers.LoadEnv()
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         // Get the authorization header
         authHeader := r.Header.Get("Authorization")

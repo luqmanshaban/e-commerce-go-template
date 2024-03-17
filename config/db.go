@@ -4,7 +4,7 @@ import (
     "context"
     "os"
 
-    "github.com/luqmanshaban/go-eccomerce/initializers"
+    // "github.com/luqmanshaban/go-eccomerce/initializers"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -12,7 +12,7 @@ import (
 var DB *mongo.Database
 
 func ConnectToDB() {
-    initializers.LoadEnv()
+    // initializers.LoadEnv()
     dbString := os.Getenv("DB_STRING")
 
     // Use Connect instead of deprecated NewClient
