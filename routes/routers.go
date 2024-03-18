@@ -22,6 +22,7 @@ func SetupRoutes(router *mux.Router, userService services.UserService, productSe
     router.HandleFunc("/api/users/{id}", authController.GetUserByID).Methods("GET")
     router.HandleFunc("/api/users/{id}", authController.UpdateUser).Methods("PUT")
     router.HandleFunc("/api/users/{id}", authController.DeleteUser).Methods("DELETE")
+    router.HandleFunc("/api/users/verify-email/{code}", authController.VerifyEmail).Methods("POST")
 
     // Routes for Product controller
     router.HandleFunc("/api/products", productController.CreateProduct).Methods("POST")

@@ -10,4 +10,5 @@ type UserService interface {
 	GetUserByEmail(email string) (*models.User, error)
 	GetUserByUsername(username string) (*models.User, error)
 	Login(email, password string) (*models.User, error)
+	VerifyEmail(verificationCode string) error
 }

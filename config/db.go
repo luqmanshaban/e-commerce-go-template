@@ -1,18 +1,19 @@
 package config
 
 import (
-    "context"
-    "os"
+	"context"
+	"os"
 
-    // "github.com/luqmanshaban/go-eccomerce/initializers"
-    "go.mongodb.org/mongo-driver/mongo"
-    "go.mongodb.org/mongo-driver/mongo/options"
+	// "github.com/luqmanshaban/go-eccomerce/initializers"
+	"github.com/luqmanshaban/go-eccomerce/initializers"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var DB *mongo.Database
 
 func ConnectToDB() {
-    // initializers.LoadEnv()
+    initializers.LoadEnv()
     dbString := os.Getenv("DB_STRING")
 
     // Use Connect instead of deprecated NewClient

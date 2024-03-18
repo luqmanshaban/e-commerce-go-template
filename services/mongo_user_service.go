@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	// "fmt"
 
@@ -71,7 +72,45 @@ func (s *MongoUserService) UpdateUser(user *models.User) error {
 	return err
 }
 
-func (s *MongoUserService) CreateUser(user *models.User) error {
+func (s *MongoUserService) VerifyEmail(verificationCode string) error {
+
+	println(verificationCode)
+    var user models.User
+    err := s.collection.FindOne(context.Background(), bson.M{"verification_code": verificationCode}).Decode(&user)
+    if err != nil {
+        if err == mongo.ErrNoDocuments {
+            return errors.New("invalid verification code") // User not found or invalid code
+        }
+        return err
+    }
+
+    // Parse the verification code expiration time
+    expirationTime, err := time.Parse(time.RFC3339, user.VerificationCodeExpiration)
+    if err != nil {
+        return err // Handle parsing error
+    }
+
+    // Check if verification code is expired
+    if time.Now().After(expirationTime) {
+        return errors.New("verification code has expired")
+    }
+
+    // Update user to verified status
+    user.IsVerified = true                    // Set boolean flag to mark as verified
+    user.VerificationCode = ""                // Clear verification code
+    user.VerificationCodeExpiration = ""      // Clear expiration time
+
+    _, err = s.collection.ReplaceOne(context.Background(), bson.M{"_id": user.ID}, user)
+    if err != nil {
+        return err
+    }
+
+    return nil // Verification successful
+}
+
+
+
+  func (s *MongoUserService) CreateUser(user *models.User) error {
 	// Hash the password before storing it
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {

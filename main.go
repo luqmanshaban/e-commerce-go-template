@@ -1,13 +1,14 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
-    "github.com/gorilla/mux"
-    "github.com/gorilla/handlers"
-    "github.com/luqmanshaban/go-eccomerce/config"
-    "github.com/luqmanshaban/go-eccomerce/routes"
-    "github.com/luqmanshaban/go-eccomerce/services"
+	"fmt"
+	"net/http"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"github.com/luqmanshaban/go-eccomerce/config"
+	"github.com/luqmanshaban/go-eccomerce/routes"
+	"github.com/luqmanshaban/go-eccomerce/services"
 )
 
 func main() {
@@ -40,3 +41,4 @@ func main() {
     fmt.Println("SERVER RUNNING ON http://localhost:4000")
     http.ListenAndServe(":4000", corsHandler(router))
 }
+
